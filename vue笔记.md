@@ -37,6 +37,27 @@ vuex  状态管理实现通信
 
 vue有两种路由模式，分别是hash和history,都是不刷新页面来更新页面，通过js实现动态网页内容
 ### hash模式
-hash指的是url地址#符号后面的值，作为锚点来跳转页面，通过监听window.location.hash变化，方法是onhashChange  
+hash指的是url地址#符号后面的值，作为锚点来跳转页面，通过监听window.location.hash变化，方法是hashchange  
+````js
+window.addEventListener('hashchange', e => {
+  console.log(e) // 点击浏览器后退和前进都会触发
+})
+````
 ### history模式
 history可以自定义地址，利用history api实现url地址改变
+````js
+history.back() // 后退
+history.forward() // 前进
+history.go(e) // e的值为1是前进，0刷新，-1后退  
+
+/*
+* history.pushState(object, title, url) 该方法是添加一条记录url变化但不会触发页面刷新
+* 参数object： 类型Object，可以将该对象传给新页面，可以为null
+* 参数title： 类型String，标题
+* 参数url： 类型String，跳转到改url，必须跟原页面同域名
+*/
+const obj = { id: 1 }
+history.pushState(obj, '', 'newPage.html')
+console.log(history.state) // { id: 1 }
+// 此时url后面已经变成www.xxx.com/newPage.html
+````
